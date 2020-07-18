@@ -3,33 +3,30 @@ package secondtask;
 import java.util.*;
 
 public class Calculate {
-    public static String ArrayListInnerJoin(List<Pair> listA, List<Pair> listB){
-        StringBuilder result = new StringBuilder();
+    public static List<Triplet> TestInnerJoin(List<Pair> listA, List<Pair> listB){
+        List<Triplet> result = new ArrayList<>();
         for (Pair pairA : listA){
             for (Pair pairB : listB){
                 if (pairA.getId() == pairB.getId())
-                    result.append(pairA.getId()).
-                            append(" ").
-                            append(pairA.getValue()).
-                            append(" ").
-                            append(pairB.getValue()).
-                            append("\n");
+                    result.add(new Triplet(pairA.getId(), pairA.getValue(), pairB.getValue()));
             }
         }
-        return result.toString();
+        return result;
+    }
+
+    public static List<Triplet> ArrayListInnerJoin(List<Pair> listA, List<Pair> listB){
+        List<Triplet> result = new ArrayList<>();
+        for (Pair pairA : listA){
+            for (Pair pairB : listB){
+                if (pairA.getId() == pairB.getId())
+                    result.add(new Triplet(pairA.getId(), pairA.getValue(), pairB.getValue()));
+            }
+        }
+        return result;
     }
 
     public static List<Triplet> LinkedListInnerJoin(List<Pair> listA, List<Pair> listB){
-        //LinkedList a = new LinkedList();
-        //a.get();
-        //System.out.println(listA);
-        listA.retainAll(listB);
-        listB.retainAll(listA);
-        //listB.retainAll(listA);
-        System.out.println(listA);
-        System.out.println(listB);
-        return null;
-        /*List<Triplet> result = new ArrayList<>();
+        List<Triplet> result = new ArrayList<>();
         Iterator<Pair> leftIter = listA.listIterator();
         ListIterator<Pair> rightIter = listB.listIterator();
         Pair leftPair = leftIter.next();
@@ -50,36 +47,46 @@ public class Calculate {
                     break;
                 }
             } else {
-                Iterator<Pair> rightIterTemp = rightIter;
-                while (leftIter.hasNext() && rightIterTemp.hasNext() && (leftPair.getId() == rightPair.getId())){
-                    result.add(new Triplet(leftPair.getId(), leftPair.getValue(), rightPair.getValue()));
-                    rightPair = rightIterTemp.next();
+                Iterator<Pair> rightIterTemp = listB.listIterator(rightIter.previousIndex());
+                Pair rightPairTemp = rightIterTemp.next();
+                while (rightIterTemp.hasNext() && (leftPair.getId() == rightPairTemp.getId())){
+                    result.add(new Triplet(leftPair.getId(), leftPair.getValue(), rightPairTemp.getValue()));
+                    rightPairTemp = rightIterTemp.next();
                 }
-                //result.add(new Triplet(leftPair.getId(), leftPair.getValue(), rightPair.getValue()));
-                if (leftIter.hasNext() && rightIterTemp.hasNext()) {
+
+                if (leftIter.hasNext()) {
                     leftPair = leftIter.next();
-                    //rightPair = rightIter.next();
                 } else {
                     break;
                 }
             }
         }
-        return result;*/
+        return result;
     }
 
-    public static String HashMapInnerJoin(Map<Integer, Pair> mapA, Map<Integer, Pair> mapB){
-        StringBuilder result = new StringBuilder();
-        for (Pair pairA : mapA.values()){
-            for (Pair pairB : mapB.values()){
-                if (pairA.getId() == pairB.getId())
-                    result.append(pairA.getId()).
-                            append(" ").
-                            append(pairA.getValue()).
-                            append(" ").
-                            append(pairB.getValue()).
-                            append("\n");
+    public static List<Triplet> HashMapInnerJoin(List<Pair> listA, List<Pair> listB){
+        List<Triplet> result = new ArrayList<>();
+        Map<Integer, List<Pair>> map = new HashMap<>();
+
+        // по хорошему при больших объемах данных нужно мапу заполнять меньшим из листов
+        for (Pair tempPairA : listA) {
+        //for (Pair tempPairMin : listA.size() < listB.size() ? listA : listB) {
+            List<Pair> variantsList = map.getOrDefault(tempPairA.getId(), new ArrayList<>());
+            variantsList.add(tempPairA);
+            map.put(tempPairA.getId(), variantsList);
+        }
+
+        for (Pair tempPairB : listB) {
+        //for (Pair tempPairMax : listA.size() > listB.size() ? listA : listB) {
+            List<Pair> lst = map.get(tempPairB.getId());
+            if (lst != null) {
+                //https://habr.com/ru/post/192130/ про foreach
+                //lst.forEach(r -> result.add(new String[][]{r, tempPairB})); // можно и так
+                for (Pair goodPair : lst){
+                    result.add(new Triplet(goodPair.getId(), goodPair.getValue(), tempPairB.getValue()));
+                }
             }
         }
-        return result.toString();
+        return result;
     }
 }
