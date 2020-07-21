@@ -39,9 +39,12 @@ public class Calculate {
             } else {
                 Iterator<Pair> rightIterTemp = listB.listIterator(rightIter.previousIndex());
                 Pair rightPairTemp = rightIterTemp.next();
-                while (rightIterTemp.hasNext() && (leftPair.getId() == rightPairTemp.getId())){
+                while (leftPair.getId() == rightPairTemp.getId()){
                     result.add(new Triplet(leftPair.getId(), leftPair.getValue(), rightPairTemp.getValue()));
-                    rightPairTemp = rightIterTemp.next();
+                    if (rightIterTemp.hasNext())
+                        rightPairTemp = rightIterTemp.next();
+                    else
+                        break;
                 }
 
                 if (leftIter.hasNext()) {

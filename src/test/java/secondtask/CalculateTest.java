@@ -27,7 +27,7 @@ class CalculateTest {
         end = new Date();
         System.out.println("Time :" + (end.getTime() - start.getTime()));
         System.out.println("End ArrayListInnerJoin");
-        //System.out.println(resultArrayList);
+        System.out.println(resultArrayList);
     }
 
     @Test
@@ -44,7 +44,7 @@ class CalculateTest {
         end = new Date();
         System.out.println("Time :" + (end.getTime() - start.getTime()));
         System.out.println("End LinkedListInnerJoin");
-        //System.out.println(resultLinkedList);
+        System.out.println(resultLinkedList);
     }
 
     @Test
@@ -61,7 +61,7 @@ class CalculateTest {
         end = new Date();
         System.out.println("Time :" + (end.getTime() - start.getTime()));
         System.out.println("End LinkedListInnerJoi2");
-        //System.out.println(resultLinkedList2);
+        System.out.println(resultLinkedList2);
     }
 
     @Test
@@ -78,7 +78,7 @@ class CalculateTest {
         end = new Date();
         System.out.println("Time :" + (end.getTime() - start.getTime()));
         System.out.println("End LinkedListInnerJoi3");
-        //System.out.println(resultLinkedList3);
+        System.out.println(resultLinkedList3);
     }
 
     @Test
@@ -89,6 +89,6 @@ class CalculateTest {
         end = new Date();
         System.out.println("Time :" + (end.getTime() - start.getTime()));
         System.out.println("End HashMapInnerJoin");
-        //System.out.println(resultHashMap);
+        System.out.println(resultHashMap);
     }
 }
