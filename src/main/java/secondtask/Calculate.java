@@ -3,7 +3,8 @@ package secondtask;
 import java.util.*;
 
 public class Calculate {
-    public static List<Triplet> TestInnerJoin(List<Pair> listA, List<Pair> listB){
+
+    public static List<Triplet> arrayListInnerJoin(List<Pair> listA, List<Pair> listB){
         List<Triplet> result = new ArrayList<>();
         for (Pair pairA : listA){
             for (Pair pairB : listB){
@@ -14,18 +15,7 @@ public class Calculate {
         return result;
     }
 
-    public static List<Triplet> ArrayListInnerJoin(List<Pair> listA, List<Pair> listB){
-        List<Triplet> result = new ArrayList<>();
-        for (Pair pairA : listA){
-            for (Pair pairB : listB){
-                if (pairA.getId() == pairB.getId())
-                    result.add(new Triplet(pairA.getId(), pairA.getValue(), pairB.getValue()));
-            }
-        }
-        return result;
-    }
-
-    public static List<Triplet> LinkedListInnerJoin(List<Pair> listA, List<Pair> listB){
+    public static List<Triplet> linkedListInnerJoin(List<Pair> listA, List<Pair> listB){
         List<Triplet> result = new ArrayList<>();
         Iterator<Pair> leftIter = listA.listIterator();
         ListIterator<Pair> rightIter = listB.listIterator();
@@ -64,53 +54,130 @@ public class Calculate {
         return result;
     }
 
-    /*public static List<Triplet> HashMapInnerJoin(List<Pair> listA, List<Pair> listB){
+    public static List<Triplet> linkedListInnerJoin2(List<Pair> listA, List<Pair> listB){
         List<Triplet> result = new ArrayList<>();
-        Map<Integer, List<Pair>> map = new HashMap<>();
+        Iterator<Pair> leftIter = listA.listIterator();
+        ListIterator<Pair> rightIter = listB.listIterator();
+        Pair leftPair = leftIter.next();
+        Pair rightPair = rightIter.next();
 
-        // по хорошему при больших объемах данных нужно мапу заполнять меньшим из листов
-        for (Pair tempPairA : listA) {
-        //for (Pair tempPairMin : listA.size() < listB.size() ? listA : listB) {
-            List<Pair> variantsList = map.getOrDefault(tempPairA.getId(), new ArrayList<>());
-            variantsList.add(tempPairA);
-            map.put(tempPairA.getId(), variantsList);
-        }
+        List<String> nowVariants = new ArrayList<>();
 
-        for (Pair tempPairB : listB) {
-        //for (Pair tempPairMax : listA.size() > listB.size() ? listA : listB) {
-            List<Pair> lst = map.get(tempPairB.getId());
-            if (lst != null) {
-                //https://habr.com/ru/post/192130/ про foreach
-                //lst.forEach(r -> result.add(new String[][]{r, tempPairB})); // можно и так
-                for (Pair goodPair : lst){
-                    result.add(new Triplet(goodPair.getId(), goodPair.getValue(), tempPairB.getValue()));
+        while (true) {
+            int compare = leftPair.getId() - rightPair.getId();
+            if (compare < 0) {
+                if (leftIter.hasNext()) {
+                    leftPair = leftIter.next();
+                } else {
+                    break;
                 }
+            } else if (compare > 0) {
+                if (rightIter.hasNext()) {
+                    rightPair = rightIter.next();
+                } else {
+                    break;
+                }
+            } else {
+                while (leftPair.getId() == rightPair.getId()) {
+                    nowVariants.add(rightPair.getValue());
+                    if (!rightIter.hasNext())
+                        break;
+                    rightPair = rightIter.next();
+                }
+
+                while (rightPair.getId() > leftPair.getId() || !rightIter.hasNext()) {
+                    for (String s : nowVariants) {
+                        result.add(new Triplet(leftPair.getId(), leftPair.getValue(), s));
+                    }
+                    if (leftIter.hasNext())
+                        leftPair = leftIter.next();
+                    else
+                        break;
+                }
+
+                if (!leftIter.hasNext()) {
+                    break;
+                }
+
+                nowVariants = new ArrayList<>();
             }
         }
         return result;
-    }*/
+    }
 
-    public static List<Triplet> HashMapInnerJoin(List<Pair> listA, List<Pair> listB){
+    public static List<Triplet> linkedListInnerJoin3(List<Pair> listA, List<Pair> listB){
         List<Triplet> result = new ArrayList<>();
-        Map<Integer, List<String>> map = new HashMap<>();
+        Iterator<Pair> leftIter = listA.listIterator();
+        ListIterator<Pair> rightIter = listB.listIterator();
+        Pair leftPair = leftIter.next();
+        Pair rightPair = rightIter.next();
 
-        // по хорошему при больших объемах данных нужно мапу заполнять меньшим из листов
+        int id = 0;
+        boolean check = true;
+
+        while (true) {
+            int compare = leftPair.getId() - rightPair.getId();
+            if (compare < 0) {
+                if (leftIter.hasNext()) {
+                    leftPair = leftIter.next();
+                } else {
+                    break;
+                }
+            } else if (compare > 0) {
+                if (rightIter.hasNext()) {
+                    rightPair = rightIter.next();
+                    check = true;
+                } else {
+                    break;
+                }
+            } else {
+                if (check) {
+                    id = rightIter.previousIndex();
+                    check = false;
+                }
+                while (leftPair.getId() == rightPair.getId()){
+                    result.add(new Triplet(leftPair.getId(), leftPair.getValue(), rightPair.getValue()));
+                    if (rightIter.hasNext())
+                        rightPair = rightIter.next();
+                    else
+                        break;
+                }
+                if (leftIter.hasNext()) {
+                    leftPair = leftIter.next();
+                    rightIter = listB.listIterator(id);
+                    rightPair = rightIter.next();
+                }
+                else
+                    break;
+            }
+        }
+        return result;
+    }
+
+    public static List<Triplet> hashMapInnerJoin(List<Pair> listA, List<Pair> listB){
+        List<Triplet> result = new ArrayList<>();
+        Map<Integer, List<String>> mapA = new HashMap<>();
+        Map<Integer, List<String>> mapB = new HashMap<>();
+
         for (Pair tempPairA : listA) {
-            //for (Pair tempPairMin : listA.size() < listB.size() ? listA : listB) {
-            List<String> variantsList = map.getOrDefault(tempPairA.getId(), new ArrayList<>());
+            List<String> variantsList = mapA.getOrDefault(tempPairA.getId(), new ArrayList<>());
             variantsList.add(tempPairA.getValue());
-            map.put(tempPairA.getId(), variantsList);
+            mapA.put(tempPairA.getId(), variantsList);
         }
 
         for (Pair tempPairB : listB) {
-            //for (Pair tempPairMax : listA.size() > listB.size() ? listA : listB) {
-            List<String> lst = map.get(tempPairB.getId());
-            if (lst != null) {
-                //https://habr.com/ru/post/192130/ про foreach
-                lst.forEach(r -> result.add(new Triplet(tempPairB.getId(), r, tempPairB.getValue()))); // можно и так
-                /*for (String goodValue : lst){
-                    result.add(new Triplet(tempPairB.getId(), goodValue, tempPairB.getValue()));
-                }*/
+            List<String> variantsList = mapB.getOrDefault(tempPairB.getId(), new ArrayList<>());
+            variantsList.add(tempPairB.getValue());
+            mapB.put(tempPairB.getId(), variantsList);
+        }
+
+        for (Map.Entry<Integer, List<String>> tempPairB : mapB.entrySet()) {
+            List<String> lstVariantsA = mapA.get(tempPairB.getKey());
+            if (lstVariantsA != null) {
+                for (String goodValueA : lstVariantsA){
+                    for (String goodValueB : tempPairB.getValue())
+                        result.add(new Triplet(tempPairB.getKey(), goodValueA, goodValueB));
+                }
             }
         }
         return result;
