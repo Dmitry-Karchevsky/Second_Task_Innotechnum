@@ -1,0 +1,9 @@
+
+z	java:S135 "YReduce the total number of break and continue statements in this loop to use at most one.(˜ïˆžÿÿÿÿÿ8ù‡ºìµ.
+\
+java:S1118":Add a private constructor to hide the implicit public one.(„ÒÛ¯þÿÿÿÿ8‚ñ«æµ.
+o	java:S100	"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(É· åúÿÿÿÿ8‚ñ«æµ.
+o	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(½âä‡ùÿÿÿÿ8‘ÈÝèµ.
+t
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(½âä‡ùÿÿÿÿ8ù‡ºìµ.
+o	java:S100;"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ñ´æèúÿÿÿÿ8¼Ï‹éµ.

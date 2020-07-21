@@ -7,8 +7,8 @@ import java.util.*;
 public class SecondTask {
     public static void main(String[] args) {
 
-        //args = new String[]{"src\\main\\resources\\SimpleFile1.txt", "src\\main\\resources\\SimpleFile2.txt"};
-        args = new String[]{"src\\main\\resources\\InputFile1.txt", "src\\main\\resources\\InputFile2.txt"};
+        args = new String[]{"src\\main\\resources\\SimpleFile1.txt", "src\\main\\resources\\SimpleFile2.txt"};
+        //args = new String[]{"src\\main\\resources\\InputFile1.txt", "src\\main\\resources\\InputFile2.txt"};
 
         /*try(FileWriter writer = new FileWriter(args[0], false))
         {
@@ -35,20 +35,20 @@ public class SecondTask {
         List<Pair> arrayListA = ReadFile.readFileInList(args[0]);
         List<Pair> arrayListB = ReadFile.readFileInList(args[1]);
 
-        //ArrayListInnerJoin
+        //TestListInnerJoin
         System.out.println("Start TestInnerJoin");
         start = new Date();
         List<Triplet> resultTestList = Calculate.TestInnerJoin(arrayListA, arrayListB);
         end = new Date();
-        resultTestList = null;
-        System.gc();
+       // resultTestList = null;
+       // System.gc();
         System.out.println("Time :" + (end.getTime() - start.getTime()));
         System.out.println("End TestInnerJoin");
-        //System.out.println(resultTestList);
+        System.out.println(resultTestList);
         System.out.println();
 
         //ArrayListInnerJoin
-        /*System.out.println("Start ArrayListInnerJoin");
+        System.out.println("Start ArrayListInnerJoin");
         start = new Date();
         List<Triplet> resultArrayList = Calculate.TestInnerJoin(arrayListA, arrayListB);
         end = new Date();
@@ -57,7 +57,7 @@ public class SecondTask {
         System.out.println("Time :" + (end.getTime() - start.getTime()));
         System.out.println("End ArrayListInnerJoin");
         System.out.println(resultArrayList);
-        System.out.println();*/
+        System.out.println();
 
         Collections.sort(arrayListA);
         Collections.sort(arrayListB);
@@ -70,11 +70,11 @@ public class SecondTask {
         start = new Date();
         List<Triplet> resultLinkedList = Calculate.LinkedListInnerJoin(testlist, testlist2);
         end = new Date();
-        resultLinkedList = null;
-        System.gc();
+        //resultLinkedList = null;
+        //System.gc();
         System.out.println("Time :" + (end.getTime() - start.getTime()));
         System.out.println("End LinkedListInnerJoin");
-        //System.out.println(resultLinkedList);
+        System.out.println(resultLinkedList);
         System.out.println();
 
         //HashMapInnerJoin
@@ -84,6 +84,8 @@ public class SecondTask {
         end = new Date();
         System.out.println("Time :" + (end.getTime() - start.getTime()));
         System.out.println("End HashMapInnerJoin");
-        //System.out.println(resultHashMap);
+        //resultHashMap = null;
+        //System.gc();
+        System.out.println(resultHashMap);
     }
 }

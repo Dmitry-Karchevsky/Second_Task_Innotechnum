@@ -1,0 +1,14 @@
+
+\
+java:S1118
+":Add a private constructor to hide the implicit public one.(ô°×àúÿÿÿÿ8ğõûãµ.
+s
+java:S3457"Q%n should be used in place of \n to produce the platform-specific line separator.(å‘´ûÿÿÿÿ8»áıåµ.
+Z	java:S106"9Replace this use of System.out or System.err by a logger.(å‘´ûÿÿÿÿ8»áıåµ.
+H
+java:S1168"+Return an empty collection instead of null.(¥¹ï8»áıåµ.
+s
+java:S3457"Q%n should be used in place of \n to produce the platform-specific line separator.(«¹Â®ÿÿÿÿÿ8»áıåµ.
+Z	java:S106"9Replace this use of System.out or System.err by a logger.(«¹Â®ÿÿÿÿÿ8»áıåµ.
+H
+java:S1168"+Return an empty collection instead of null.(¥¹ï8»áıåµ.

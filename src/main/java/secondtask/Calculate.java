@@ -33,7 +33,7 @@ public class Calculate {
         Pair rightPair = rightIter.next();
 
         while (true)  {
-            int compare = leftPair.getId() - (rightPair.getId());
+            int compare = leftPair.getId() - rightPair.getId();
             if (compare < 0) {
                 if (leftIter.hasNext()) {
                     leftPair = leftIter.next();
@@ -64,7 +64,7 @@ public class Calculate {
         return result;
     }
 
-    public static List<Triplet> HashMapInnerJoin(List<Pair> listA, List<Pair> listB){
+    /*public static List<Triplet> HashMapInnerJoin(List<Pair> listA, List<Pair> listB){
         List<Triplet> result = new ArrayList<>();
         Map<Integer, List<Pair>> map = new HashMap<>();
 
@@ -85,6 +85,32 @@ public class Calculate {
                 for (Pair goodPair : lst){
                     result.add(new Triplet(goodPair.getId(), goodPair.getValue(), tempPairB.getValue()));
                 }
+            }
+        }
+        return result;
+    }*/
+
+    public static List<Triplet> HashMapInnerJoin(List<Pair> listA, List<Pair> listB){
+        List<Triplet> result = new ArrayList<>();
+        Map<Integer, List<String>> map = new HashMap<>();
+
+        // по хорошему при больших объемах данных нужно мапу заполнять меньшим из листов
+        for (Pair tempPairA : listA) {
+            //for (Pair tempPairMin : listA.size() < listB.size() ? listA : listB) {
+            List<String> variantsList = map.getOrDefault(tempPairA.getId(), new ArrayList<>());
+            variantsList.add(tempPairA.getValue());
+            map.put(tempPairA.getId(), variantsList);
+        }
+
+        for (Pair tempPairB : listB) {
+            //for (Pair tempPairMax : listA.size() > listB.size() ? listA : listB) {
+            List<String> lst = map.get(tempPairB.getId());
+            if (lst != null) {
+                //https://habr.com/ru/post/192130/ про foreach
+                lst.forEach(r -> result.add(new Triplet(tempPairB.getId(), r, tempPairB.getValue()))); // можно и так
+                /*for (String goodValue : lst){
+                    result.add(new Triplet(tempPairB.getId(), goodValue, tempPairB.getValue()));
+                }*/
             }
         }
         return result;
