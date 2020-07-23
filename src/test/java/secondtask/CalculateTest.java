@@ -21,9 +21,12 @@ class CalculateTest {
 
     @Test
     void arrayListInnerJoin() {
+        ArrayList<Pair> testlist = new ArrayList<>(arrayListA);
+        ArrayList<Pair> testlist2 = new ArrayList<>(arrayListB);
+
         System.out.println("Start ArrayListInnerJoin");
         start = new Date();
-        List<Triplet> resultArrayList = Calculate.arrayListInnerJoin(arrayListA, arrayListB);
+        List<Triplet> resultArrayList = Calculate.arrayListInnerJoin(testlist, testlist2);
         end = new Date();
         System.out.println("Time :" + (end.getTime() - start.getTime()));
         System.out.println("End ArrayListInnerJoin");
@@ -35,8 +38,8 @@ class CalculateTest {
         Collections.sort(arrayListA);
         Collections.sort(arrayListB);
 
-        List<Pair> testlist = new LinkedList<>(arrayListA);
-        List<Pair> testlist2 = new LinkedList<>(arrayListB);
+        LinkedList<Pair> testlist = new LinkedList<>(arrayListA);
+        LinkedList<Pair> testlist2 = new LinkedList<>(arrayListB);
 
         System.out.println("Start LinkedListInnerJoin");
         start = new Date();
@@ -44,41 +47,7 @@ class CalculateTest {
         end = new Date();
         System.out.println("Time :" + (end.getTime() - start.getTime()));
         System.out.println("End LinkedListInnerJoin");
-        System.out.println(resultLinkedList);
-    }
-
-    @Test
-    void linkedListInnerJoin2() {
-        Collections.sort(arrayListA);
-        Collections.sort(arrayListB);
-
-        List<Pair> testlist = new LinkedList<>(arrayListA);
-        List<Pair> testlist2 = new LinkedList<>(arrayListB);
-
-        System.out.println("Start LinkedListInnerJoin2");
-        start = new Date();
-        List<Triplet> resultLinkedList2 = Calculate.linkedListInnerJoin2(testlist, testlist2);
-        end = new Date();
-        System.out.println("Time :" + (end.getTime() - start.getTime()));
-        System.out.println("End LinkedListInnerJoi2");
-        System.out.println(resultLinkedList2);
-    }
-
-    @Test
-    void linkedListInnerJoin3() {
-        Collections.sort(arrayListA);
-        Collections.sort(arrayListB);
-
-        List<Pair> testlist = new LinkedList<>(arrayListA);
-        List<Pair> testlist2 = new LinkedList<>(arrayListB);
-
-        System.out.println("Start LinkedListInnerJoin3");
-        start = new Date();
-        List<Triplet> resultLinkedList3 = Calculate.linkedListInnerJoin3(testlist, testlist2);
-        end = new Date();
-        System.out.println("Time :" + (end.getTime() - start.getTime()));
-        System.out.println("End LinkedListInnerJoi3");
-        System.out.println(resultLinkedList3);
+        //System.out.println(resultLinkedList);
     }
 
     @Test
