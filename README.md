@@ -19,16 +19,27 @@
 
 
 Пример:
+
 A			B
+
 ID	VALUE		ID	VALUE
+
 1	A		2	A
+
 2	C		4	B
+
 3	D		3	E
+
 2	B
+
 5	D
 
 Результат:
+
 ID	A.VALUE	B.VALUE
+
 2	C	A
+
 2	B	A
+
 3	D	E
